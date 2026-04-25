@@ -1,0 +1,29 @@
+<section class="contact-section">
+    <div class="contact-card">
+        <h2 class="contact-title">Dueños de Mascotas</h2>
+        <form>
+            <div class="contact-field">
+                <label>Nombre</label>
+                <input type="text" [(ngModel)]="nombre" name="nombre">
+            </div>
+            <div class="contact-field">
+                <label>Correo</label>
+                <input type="email" [(ngModel)]="email" name="email">
+            </div>
+            <div class="contact-field">
+                <label>Mensaje</label>
+                <textarea rows="4" [(ngModel)]="mensaje" name="mensaje"></textarea>
+            </div>
+            <div class="contact-actions">
+                <button type="button" class="btn-stroke" (click)="enviar()">Enviar</button>
+            </div>
+        </form>
+    </div>
+    <h3 class="contact-subtitle">Listado de Dueños y sus Mascotas</h3>
+    <ul class="contact-mascotas-list">
+        <li *ngFor="let mascota of mascotas">
+            <span class="mascota-nombre">🐾 {{ mascota.nombre }}</span>
+            <span class="mascota-especie">({{ mascota.especie }} - {{ mascota.raza }})</span> - <span class="mascota-dueno">Dueño: {{ mascota.dueno.nombre }} ({{ mascota.dueno.telefono }})</span>
+        </li>
+    </ul>
+</section>

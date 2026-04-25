@@ -1,0 +1,79 @@
+<div class="mascotas-container">
+    <h2>Gestión de Mascotas</h2>
+    <form [formGroup]="mascotaForm" (ngSubmit)="submit()" class="mascotas-form">
+        <div class="form-field">
+            <label>Nombre</label>
+            <input formControlName="nombre" required>
+        </div>
+        <div class="form-field">
+            <label>Especie</label>
+            <input formControlName="especie" required>
+        </div>
+        <div class="form-field">
+            <label>Raza</label>
+            <input formControlName="raza" required>
+        </div>
+        <div class="form-field">
+            <label>Dueño</label>
+            <input formControlName="duenoNombre" required>
+        </div>
+        <div class="form-field">
+            <label>Teléfono</label>
+            <input formControlName="duenoTelefono" required>
+        </div>
+        <div class="vacunas-section">
+            <label class="vacunas-label">Vacunas</label>
+            <div formArrayName="vacunas">
+                <div *ngFor="let v of vacunas.controls; let i=index" [formGroupName]="i" class="vacuna-row">
+                    <div class="vacuna-field">
+                        <label>Nombre</label>
+                        <input formControlName="nombre" required>
+                    </div>
+                    <div class="vacuna-field">
+                        <label>Fecha</label>
+                        <input type="date" formControlName="fecha" required>
+                    </div>
+                    <button type="button" class="btn-delete" (click)="eliminarVacuna(i)">🗑️</button>
+                </div>
+            </div>
+            <button type="button" class="btn-stroke" (click)="agregarVacuna()">Agregar Vacuna</button>
+        </div>
+        <button class="submit-btn" type="submit">{{editIndex!==null?'Actualizar':'Registrar'}}</button>
+    </form>
+
+    <div class="tabla-mascotas-wrapper">
+        <table class="mascotas-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Especie</th>
+                    <th>Raza</th>
+                    <th>Dueño</th>
+                    <th>Teléfono</th>
+                    <th>Vacunas</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of mascotas; let i = index">
+                    <td class="mascota-nombre">{{m.nombre}}</td>
+                    <td class="mascota-especie">{{m.especie}}</td>
+                    <td>{{m.raza}}</td>
+                    <td>{{m.dueno.nombre}}</td>
+                    <td class="mascota-tel">{{m.dueno.telefono}}</td>
+                    <td>
+                        <span *ngIf="m.vacunas.length > 0">
+                            <span *ngFor="let v of m.vacunas; let last=last">{{v.nombre}}<span *ngIf="!last">,
+                                </span></span>
+                        </span>
+                        <span *ngIf="m.vacunas.length === 0" class="no-vacunas">Sin vacunas</span>
+                    </td>
+                    <td>
+                        <button class="btn-edit" (click)="editarMascota(i)">✏️</button>
+                        <button class="btn-delete" (click)="eliminarMascota(i)">🗑️</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

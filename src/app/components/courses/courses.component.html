@@ -1,0 +1,17 @@
+<section id="mascotas" class="courses-section">
+    <h2 class="courses-title">Mascotas</h2>
+    <div class="course-container">
+        <div *ngFor="let mascota of mascotas" class="mascota-card">
+            <div class="mascota-header">
+                <span class="mascota-icon">🐾</span>
+                <span class="mascota-nombre">{{ mascota.nombre }}</span>
+                <span class="mascota-info">({{ mascota.especie }} - {{ mascota.raza }})</span>
+            </div>
+            <div class="mascota-content">
+                <p><b>Dueño actual:</b> {{ mascota.dueno.nombre }}</p>
+                <p><b>Vacunas:</b> <span *ngFor="let vacuna of mascota.vacunas; let last = last">{{ vacuna.nombre }}<span *ngIf="!last">, </span></span></p>
+                <button class="adoptar-btn">Ver detalles</button>
+            </div>
+        </div>
+    </div>
+</section>

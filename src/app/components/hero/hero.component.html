@@ -1,0 +1,23 @@
+<section class="hero-section">
+    <div class="hero-card">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">¡Adopta una mascota y cambia tu vida!</h1>
+                <p class="hero-desc">Encuentra a tu nuevo mejor amigo entre decenas de mascotas esperando un hogar. Plataforma moderna, fácil y segura.</p>
+                <div *ngIf="mascotas.length > 0">
+                    <div class="destacada-card">
+                        <div class="destacada-title">Mascota destacada: <span class="destacada-nombre">{{ mascotas[0].nombre }}</span></div>
+                        <div class="destacada-content">
+                            <p>Especie: <b>{{ mascotas[0].especie }}</b> | Raza: <b>{{ mascotas[0].raza }}</b></p>
+                            <p>Dueño: <b>{{ mascotas[0].dueno.nombre }}</b></p>
+                            <p>Vacunas: <span *ngFor="let vacuna of mascotas[0].vacunas; let last = last">{{ vacuna.nombre }}<span *ngIf="!last">, </span></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://arfaquinta.com/wp-content/uploads/estudiantes-colaborando-en-un-aula-virtual.jpg" alt="Estudiando en línea">
+            </div>
+        </div>
+    </div>
+</section>

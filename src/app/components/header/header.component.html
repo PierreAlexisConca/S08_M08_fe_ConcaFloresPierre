@@ -1,0 +1,19 @@
+<header class="header-section">
+  <div class="header-toolbar">
+    <span class="header-title">
+      <span class="header-icon">🐾</span>&nbsp;PetAdopt
+    </span>
+    <span class="spacer"></span>
+    <nav class="header-nav">
+      <a class="header-link" routerLink="/">Inicio</a>
+      <a class="header-link" routerLink="/mascotas">Mascotas</a>
+      <a class="header-link" routerLink="/razas">Razas</a>
+      <a class="header-link" routerLink="/duenos">Dueños</a>
+      <a class="header-link" routerLink="/contact">Contacto</a>
+      <button class="header-btn" routerLink="/enrollments">Inscribirme</button>
+      <span class="header-badge" title="Mascotas registradas">
+        🐾 <span class="badge-count">{{ mascotas.length }}</span>
+      </span>
+    </nav>
+  </div>
+</header>

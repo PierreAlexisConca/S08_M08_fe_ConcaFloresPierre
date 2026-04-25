@@ -1,0 +1,294 @@
+/* --- Tabla de mascotas mejorada --- */
+.tabla-mascotas-wrapper {
+    margin-top: 32px;
+    border-radius: 18px;
+    overflow-x: auto;
+    background: transparent;
+}
+
+.mascotas-table {
+    width: 100%;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.13);
+    overflow: hidden;
+    font-size: 1.08rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    transition: box-shadow 0.3s;
+}
+
+.mascotas-table:hover {
+    box-shadow: 0 16px 48px rgba(99, 102, 241, 0.18);
+}
+
+
+.mascotas-table th {
+    background: linear-gradient(90deg, #6366f1 60%, #a8edea 100%);
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.15rem;
+    text-align: center;
+    letter-spacing: 0.7px;
+    border-bottom: 3px solid #a8edea;
+    padding: 14px 0;
+}
+.mascotas-table td {
+    text-align: center;
+    font-size: 1.08rem;
+    color: #333;
+    padding: 12px 0;
+    border-bottom: 1.5px solid #f3f4f6;
+    background: #fff;
+    transition: background 0.2s;
+}
+.mascotas-table tr:hover td {
+    background: #f3f4f6;
+}
+
+.mascota-nombre {
+    font-weight: 700;
+    color: #6366f1;
+    font-size: 1.08rem;
+}
+
+.mascota-especie {
+    color: #8b5cf6;
+    font-weight: 600;
+}
+
+.mascota-tel {
+    color: #6366f1;
+    font-weight: 500;
+}
+
+.no-vacunas {
+    color: #b91c1c;
+    font-size: 0.98em;
+    font-style: italic;
+}
+
+
+/* Botones personalizados */
+.btn-edit, .btn-delete, .btn-stroke {
+    border: none;
+    background: #f3f4f6;
+    color: #6366f1;
+    font-size: 1.1em;
+    border-radius: 8px;
+    padding: 6px 12px;
+    margin: 0 2px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 1px 4px rgba(99,102,241,0.08);
+}
+.btn-edit:hover {
+    background: #a8edea;
+    color: #fff;
+}
+.btn-delete:hover {
+    background: #b91c1c;
+    color: #fff;
+}
+.btn-stroke {
+    border: 2px solid #6366f1;
+    background: #fff;
+    color: #6366f1;
+    font-weight: 600;
+    margin-top: 8px;
+}
+.btn-stroke:hover {
+    background: #e0e7ff;
+}
+
+/* Campos personalizados */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+.form-field label {
+    font-weight: 600;
+    color: #6366f1;
+    margin-bottom: 2px;
+}
+.form-field input {
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1.5px solid #e0e7ff;
+    background: #f8fafc;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.2s;
+}
+.form-field input:focus {
+    border: 1.5px solid #6366f1;
+}
+
+@media (max-width: 700px) {
+
+    .mascotas-table th.mat-header-cell,
+    .mascotas-table td.mat-cell {
+        font-size: 0.98rem;
+        padding: 8px 0;
+    }
+
+    .mascotas-container {
+        padding: 4px;
+    }
+}
+
+
+body,
+:host {
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.mascotas-container {
+    max-width: 900px;
+    margin: 48px auto 0 auto;
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.13);
+    padding: 40px 32px 32px 32px;
+    transition: box-shadow 0.3s;
+}
+
+.mascotas-container:hover {
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.18);
+}
+
+h2 {
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: #6366f1;
+    margin-bottom: 32px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+form.mascotas-form {
+    margin-bottom: 32px;
+    background: linear-gradient(135deg, #f3f4f6 60%, #e0e7ff 100%);
+    border-radius: 16px;
+    padding: 28px 18px 12px 18px;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.10);
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    align-items: end;
+}
+
+mat-form-field {
+    background: #f8fafc;
+    border-radius: 8px;
+    min-width: 120px;
+}
+
+.vacunas-section {
+    grid-column: 1/-1;
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 12px 10px 8px 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(99, 102, 241, 0.07);
+}
+
+.vacunas-label {
+    font-weight: 700;
+    color: #6366f1;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.vacuna-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.vacuna-field {
+    flex: 1;
+}
+
+.submit-btn {
+    grid-column: 1/-1;
+    max-width: 220px;
+    justify-self: end;
+    background: linear-gradient(90deg, #6366f1 60%, #a8edea 100%);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.13);
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+
+button[mat-stroked-button] {
+    border-color: #6366f1;
+    color: #6366f1;
+    font-weight: 600;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+button[mat-stroked-button]:hover {
+    background: #e0e7ff;
+}
+
+table {
+    width: 100%;
+    margin-top: 32px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(99, 102, 241, 0.10);
+    overflow: hidden;
+    font-size: 1.05rem;
+}
+
+th.mat-header-cell {
+    background: linear-gradient(90deg, #6366f1 60%, #a8edea 100%);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.13rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #a8edea;
+}
+
+td.mat-cell {
+    text-align: center;
+    font-size: 1.05rem;
+    color: #333;
+    padding: 10px 0;
+}
+
+tr.mat-row:nth-child(even) td.mat-cell {
+    background: #f3f4f6;
+}
+
+.mat-icon-button {
+    margin: 0 2px;
+    background: #f1f5f9;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.mat-icon-button:hover {
+    background: #e0e7ff;
+}
+
+@media (max-width: 900px) {
+    .mascotas-container {
+        padding: 10px;
+    }
+
+    form.mascotas-form {
+        padding: 10px 2px 2px 2px;
+        grid-template-columns: 1fr;
+    }
+}
