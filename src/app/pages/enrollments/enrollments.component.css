@@ -126,3 +126,59 @@ td button:last-child {
 td button:hover {
   opacity: 0.8;
 }
+
+/* VALIDACIONES */
+.form-group {
+  margin-bottom: 6px;
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.form-group small {
+  display: block;
+  color: #ef4444;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  margin-top: -4px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #6366f1;
+  background: white;
+  color: #6366f1;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancel:hover {
+  background: #e0e7ff;
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button[type="submit"] {
+  flex: 1;
+}
+
+.empty-msg {
+  text-align: center;
+  color: #9ca3af;
+  padding: 30px 0;
+  font-style: italic;
+}

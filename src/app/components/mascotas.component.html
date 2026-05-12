@@ -159,41 +159,33 @@
         </div>
     </form>
 
-    <div class="tabla-mascotas-wrapper">
-        <table class="mascotas-table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Especie</th>
-                    <th>Raza</th>
-                    <th>Dueño</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
-                    <th>Vacunas</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let m of mascotas; let i = index">
-                    <td class="mascota-nombre">{{m.nombre}}</td>
-                    <td class="mascota-especie">{{m.especie}}</td>
-                    <td>{{m.raza}}</td>
-                    <td>{{m.dueno.nombre}}</td>
-                    <td class="mascota-tel">{{m.dueno.telefono}}</td>
-                    <td>{{m.dueno.email}}</td>
-                    <td>
-                        <span *ngIf="m.vacunas.length > 0">
-                            <span *ngFor="let v of m.vacunas; let last=last">{{v.nombre}}<span *ngIf="!last">,
-                                </span></span>
-                        </span>
-                        <span *ngIf="m.vacunas.length === 0" class="no-vacunas">Sin vacunas</span>
-                    </td>
-                    <td>
-                        <button class="btn-edit" (click)="editarMascota(i)">✏️</button>
-                        <button class="btn-delete" (click)="eliminarMascota(i)">🗑️</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <h3 class="adopcion-titulo">🐾 Mascotas en Adopción</h3>
+    <div *ngIf="mascotas.length === 0" class="empty-adopcion">
+        Aún no hay mascotas registradas. ¡Agrega la primera!
+    </div>
+    <div class="adopcion-grid">
+        <div *ngFor="let m of mascotas; let i = index" class="adopcion-card">
+            <div class="adopcion-header">
+                <span class="adopcion-badge">En Adopción 🐾</span>
+                <div class="adopcion-actions-top">
+                    <button class="btn-edit" (click)="editarMascota(i)" title="Editar">✏️</button>
+                    <button class="btn-delete" (click)="eliminarMascota(i)" title="Eliminar">🗑️</button>
+                </div>
+            </div>
+            <div class="adopcion-nombre">{{ m.nombre }}</div>
+            <div class="adopcion-chips">
+                <span class="chip chip-especie">{{ m.especie }}</span>
+                <span class="chip chip-raza">{{ m.raza }}</span>
+            </div>
+            <div class="adopcion-dueno">
+                <span>👤 {{ m.dueno.nombre }}</span>
+                <span>📞 {{ m.dueno.telefono }}</span>
+                <span>✉️ {{ m.dueno.email }}</span>
+            </div>
+            <div class="adopcion-vacunas" *ngIf="m.vacunas.length > 0">
+                <span class="vacuna-chip" *ngFor="let v of m.vacunas">💉 {{ v.nombre }}</span>
+            </div>
+            <div class="sin-vacunas" *ngIf="m.vacunas.length === 0">Sin vacunas registradas</div>
+        </div>
     </div>
 </div>

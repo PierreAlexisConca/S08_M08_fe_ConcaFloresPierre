@@ -1,29 +1,68 @@
 <section class="contact-section">
     <div class="contact-card">
-        <h2 class="contact-title">Dueños de Mascotas</h2>
-        <form>
+        <h2 class="contact-title">🐾 Dueños de Mascotas</h2>
+        <p class="contact-desc">Regístrate para aparecer en la lista de dueños y facilitar la adopción.</p>
+
+        <div class="alert-exito" *ngIf="exito">✅ Registro enviado correctamente.</div>
+
+        <form #contactForm="ngForm" (ngSubmit)="contactForm.form.valid && enviar()" novalidate>
             <div class="contact-field">
                 <label>Nombre</label>
-                <input type="text" [(ngModel)]="nombre" name="nombre">
+                <input
+                    type="text"
+                    [(ngModel)]="nombre"
+                    name="nombre"
+                    #nombreField="ngModel"
+                    required
+                    minlength="3"
+                    placeholder="Tu nombre completo"
+                    [class.input-error]="nombreField.invalid && (nombreField.touched || submitted)">
+                <small *ngIf="nombreField.errors?.['required'] && (nombreField.touched || submitted)">El nombre es obligatorio.</small>
+                <small *ngIf="nombreField.errors?.['minlength'] && (nombreField.touched || submitted)">Mínimo 3 caracteres.</small>
             </div>
+
             <div class="contact-field">
                 <label>Correo</label>
-                <input type="email" [(ngModel)]="email" name="email">
+                <input
+                    type="email"
+                    [(ngModel)]="email"
+                    name="email"
+                    #emailField="ngModel"
+                    required
+                    email
+                    placeholder="correo@ejemplo.com"
+                    [class.input-error]="emailField.invalid && (emailField.touched || submitted)">
+                <small *ngIf="emailField.errors?.['required'] && (emailField.touched || submitted)">El correo es obligatorio.</small>
+                <small *ngIf="emailField.errors?.['email'] && (emailField.touched || submitted)">Ingresa un correo válido.</small>
             </div>
+
             <div class="contact-field">
                 <label>Mensaje</label>
-                <textarea rows="4" [(ngModel)]="mensaje" name="mensaje"></textarea>
+                <textarea
+                    rows="3"
+                    [(ngModel)]="mensaje"
+                    name="mensaje"
+                    #mensajeField="ngModel"
+                    required
+                    placeholder="Cuéntanos sobre tu mascota..."
+                    [class.input-error]="mensajeField.invalid && (mensajeField.touched || submitted)"></textarea>
+                <small *ngIf="mensajeField.invalid && (mensajeField.touched || submitted)">El mensaje es obligatorio.</small>
             </div>
+
             <div class="contact-actions">
-                <button type="button" class="btn-stroke" (click)="enviar()">Enviar</button>
+                <button type="submit" class="btn-enviar" [disabled]="contactForm.invalid">Registrar Dueño</button>
             </div>
         </form>
     </div>
-    <h3 class="contact-subtitle">Listado de Dueños y sus Mascotas</h3>
-    <ul class="contact-mascotas-list">
-        <li *ngFor="let mascota of mascotas">
-            <span class="mascota-nombre">🐾 {{ mascota.nombre }}</span>
-            <span class="mascota-especie">({{ mascota.especie }} - {{ mascota.raza }})</span> - <span class="mascota-dueno">Dueño: {{ mascota.dueno.nombre }} ({{ mascota.dueno.telefono }})</span>
-        </li>
-    </ul>
+
+    <h3 class="contact-subtitle">Listado de Dueños Registrados</h3>
+    <div *ngIf="duenos.length === 0" class="empty-msg">No hay dueños registrados aún.</div>
+    <div class="duenos-grid">
+        <div *ngFor="let d of duenos" class="dueno-card">
+            <div class="dueno-nombre">👤 {{ d.nombre }}</div>
+            <div class="dueno-email">✉️ {{ d.email }}</div>
+            <div class="dueno-msg">💬 {{ d.mensaje }}</div>
+            <button class="btn-eliminar" (click)="eliminarDueno(d.id)">🗑️ Eliminar</button>
+        </div>
+    </div>
 </section>

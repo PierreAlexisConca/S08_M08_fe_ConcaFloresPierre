@@ -1,40 +1,84 @@
-<h2 class="titulo"> Gestion de Inscripciones </h2>
+<h2 class="titulo"> Gestión de Inscripciones </h2>
 <div class="container">
     <!-- FORMULARIO -->
     <div class="formulario">
+        <h3>{{ editMode ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h3>
+        <form #enrollmentForm="ngForm" (ngSubmit)="enrollmentForm.form.valid && save()" novalidate>
 
-        <h3> {{ editMode ? 'Editar Inscripción' : 'Nueva Inscripción' }}</h3>
-        <form (ngSubmit)="save()">
-            <input type="text" [(ngModel)]="enrollment.name" name="name" placeholder="Nombre Completo" required>
-            <input type="text" [(ngModel)]="enrollment.course" name="course" placeholder="Curso" required>
-            <input type="date" [(ngModel)]="enrollment.date" name="date" required>
-            <button type="submit">{{editMode? 'Actualizar' : 'Inscribirse'}}</button>
+            <div class="form-group">
+                <input
+                    type="text"
+                    [(ngModel)]="enrollment.name"
+                    name="name"
+                    #nameField="ngModel"
+                    placeholder="Nombre Completo"
+                    required
+                    minlength="3"
+                    [class.input-error]="nameField.invalid && (nameField.touched || submitted)">
+                <small *ngIf="nameField.errors?.['required'] && (nameField.touched || submitted)">El nombre es obligatorio.</small>
+                <small *ngIf="nameField.errors?.['minlength'] && (nameField.touched || submitted)">Mínimo 3 caracteres.</small>
+            </div>
+
+            <div class="form-group">
+                <input
+                    type="text"
+                    [(ngModel)]="enrollment.course"
+                    name="course"
+                    #courseField="ngModel"
+                    placeholder="Curso"
+                    required
+                    minlength="3"
+                    [class.input-error]="courseField.invalid && (courseField.touched || submitted)">
+                <small *ngIf="courseField.errors?.['required'] && (courseField.touched || submitted)">El curso es obligatorio.</small>
+            </div>
+
+            <div class="form-group">
+                <input
+                    type="date"
+                    [(ngModel)]="enrollment.date"
+                    name="date"
+                    #dateField="ngModel"
+                    required
+                    [class.input-error]="dateField.invalid && (dateField.touched || submitted)">
+                <small *ngIf="dateField.invalid && (dateField.touched || submitted)">La fecha es obligatoria.</small>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" [disabled]="enrollmentForm.invalid">
+                    {{ editMode ? 'Actualizar' : 'Inscribirse' }}
+                </button>
+                <button type="button" class="btn-cancel" *ngIf="editMode" (click)="cancelar()">Cancelar</button>
+            </div>
         </form>
     </div>
 
     <!-- LISTADO -->
     <div class="lista">
-        <h3> Inscripciones Registradas </h3>
-        <table>
+        <h3>Inscripciones Registradas</h3>
+        <div *ngIf="enrollments.length === 0" class="empty-msg">
+            Aún no hay inscripciones registradas.
+        </div>
+        <table *ngIf="enrollments.length > 0">
             <thead>
                 <tr>
-                    <th> Nombre </th>
-                    <th> Curso </th>
-                    <th> Fecha </th>
-                    <th> Acciones </th>
+                    <th>Nombre</th>
+                    <th>Curso</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let e of enrollments">
-                    <td> {{ e.name }} </td>
-                    <td> {{ e.course }} </td>
-                    <td> {{ e.date | date }} </td>
+                    <td>{{ e.name }}</td>
+                    <td>{{ e.course }}</td>
+                    <td>{{ e.date | date:'dd/MM/yyyy' }}</td>
                     <td>
                         <button (click)="edit(e)">Editar</button>
-                        <button (click)="delete(e.id!) ">Eliminar</button>
+                        <button (click)="delete(e.id!)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+

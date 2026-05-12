@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 
+export interface Dueno {
+  id: number;
+  nombre: string;
+  email: string;
+  mensaje: string;
+}
+
 @Component({
   selector: 'app-contact',
   standalone: false,
@@ -7,44 +14,39 @@ import { Component } from '@angular/core';
   styleUrl: './contact.component.css'
 })
 export class ContactComponent {
- nombre: string = '';
- email: string = '';
- mensaje: string = '';
+  nombre = '';
+  email = '';
+  mensaje = '';
+  submitted = false;
+  exito = false;
+  private nextId = 1;
 
- mascotas = [
-    {
-      id: 1,
-      nombre: 'Firulais',
-      especie: 'Perro',
-      raza: 'Labrador',
-      dueno: { id: 10, nombre: 'Juan Pérez', telefono: '999888777' },
-      vacunas: [
-        { id: 100, nombre: 'Rabia', fecha: '2024-01-10' },
-        { id: 101, nombre: 'Parvovirus', fecha: '2024-02-15' }
-      ]
-    },
-    {
-      id: 2,
-      nombre: 'Misu',
-      especie: 'Gato',
-      raza: 'Siames',
-      dueno: { id: 11, nombre: 'Ana López', telefono: '988777666' },
-      vacunas: [
-        { id: 102, nombre: 'Triple Felina', fecha: '2024-03-20' }
-      ]
-    }
+  duenos: Dueno[] = [
+    { id: 1, nombre: 'Juan Pérez', email: 'juan@email.com', mensaje: 'Tengo un Labrador llamado Firulais.' },
+    { id: 2, nombre: 'Ana López', email: 'ana@email.com', mensaje: 'Mi gato Misu está en adopción.' }
   ];
 
- enviar() {
-  console.log('Nombre:', this.nombre);
-  console.log('Email:', this.email);
-  console.log('Mensaje:', this.mensaje);
+  enviar() {
+    this.submitted = true;
+    if (!this.nombre || !this.email || !this.mensaje) return;
 
-  alert('Mensaje enviado correctamente');
+    this.duenos.push({
+      id: this.nextId++,
+      nombre: this.nombre,
+      email: this.email,
+      mensaje: this.mensaje
+    });
 
-  //Limpiar el formulario
-  this.nombre = '';
-  this.email = '';
-  this.mensaje = '';
- }
+    this.exito = true;
+    this.nombre = '';
+    this.email = '';
+    this.mensaje = '';
+    this.submitted = false;
+
+    setTimeout(() => this.exito = false, 3000);
+  }
+
+  eliminarDueno(id: number) {
+    this.duenos = this.duenos.filter(d => d.id !== id);
+  }
 }
