@@ -215,10 +215,27 @@ mat-form-field {
     flex: 1;
 }
 
+.error-msg {
+    color: #b91c1c;
+    font-size: 0.82rem;
+    margin-top: 2px;
+}
+
+.input-invalid {
+    border: 1.5px solid #ef4444 !important;
+    background: #fef2f2 !important;
+}
+
+.actions-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .submit-btn {
-    grid-column: 1/-1;
     max-width: 220px;
-    justify-self: end;
     background: linear-gradient(90deg, #6366f1 60%, #a8edea 100%);
     color: #fff;
     font-weight: 700;
@@ -226,6 +243,11 @@ mat-form-field {
     box-shadow: 0 2px 8px rgba(99, 102, 241, 0.13);
     letter-spacing: 1px;
     font-size: 1.1rem;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 button[mat-stroked-button] {

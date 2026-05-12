@@ -1,44 +1,162 @@
 <div class="mascotas-container">
     <h2>Gestión de Mascotas</h2>
-    <form [formGroup]="mascotaForm" (ngSubmit)="submit()" class="mascotas-form">
+    <form #mascotaForm="ngForm" (ngSubmit)="mascotaForm.form.valid && submit()" class="mascotas-form" novalidate>
         <div class="form-field">
-            <label>Nombre</label>
-            <input formControlName="nombre" required>
+            <label for="nombreMascota">Nombre de mascota</label>
+            <input
+                id="nombreMascota"
+                type="text"
+                name="nombreMascota"
+                [(ngModel)]="formModel.nombre"
+                #nombreMascota="ngModel"
+                required
+                minlength="3"
+                [class.input-invalid]="nombreMascota.invalid && (nombreMascota.touched || submitted)">
+            <small class="error-msg" *ngIf="nombreMascota.errors?.['required'] && (nombreMascota.touched || submitted)">
+                El nombre es obligatorio.
+            </small>
+            <small class="error-msg" *ngIf="nombreMascota.errors?.['minlength'] && (nombreMascota.touched || submitted)">
+                Mínimo 3 caracteres.
+            </small>
         </div>
+
         <div class="form-field">
-            <label>Especie</label>
-            <input formControlName="especie" required>
+            <label for="especieMascota">Especie</label>
+            <input
+                id="especieMascota"
+                type="text"
+                name="especieMascota"
+                [(ngModel)]="formModel.especie"
+                #especieMascota="ngModel"
+                required
+                minlength="3"
+                [class.input-invalid]="especieMascota.invalid && (especieMascota.touched || submitted)">
+            <small class="error-msg" *ngIf="especieMascota.errors?.['required'] && (especieMascota.touched || submitted)">
+                La especie es obligatoria.
+            </small>
         </div>
+
         <div class="form-field">
-            <label>Raza</label>
-            <input formControlName="raza" required>
+            <label for="razaMascota">Raza</label>
+            <input
+                id="razaMascota"
+                type="text"
+                name="razaMascota"
+                [(ngModel)]="formModel.raza"
+                #razaMascota="ngModel"
+                required
+                minlength="3"
+                [class.input-invalid]="razaMascota.invalid && (razaMascota.touched || submitted)">
+            <small class="error-msg" *ngIf="razaMascota.errors?.['required'] && (razaMascota.touched || submitted)">
+                La raza es obligatoria.
+            </small>
         </div>
+
         <div class="form-field">
-            <label>Dueño</label>
-            <input formControlName="duenoNombre" required>
+            <label for="duenoNombre">Dueño</label>
+            <input
+                id="duenoNombre"
+                type="text"
+                name="duenoNombre"
+                [(ngModel)]="formModel.dueno.nombre"
+                #duenoNombre="ngModel"
+                required
+                minlength="3"
+                [class.input-invalid]="duenoNombre.invalid && (duenoNombre.touched || submitted)">
+            <small class="error-msg" *ngIf="duenoNombre.errors?.['required'] && (duenoNombre.touched || submitted)">
+                El nombre del dueño es obligatorio.
+            </small>
         </div>
+
         <div class="form-field">
-            <label>Teléfono</label>
-            <input formControlName="duenoTelefono" required>
+            <label for="duenoTelefono">Teléfono</label>
+            <input
+                id="duenoTelefono"
+                type="text"
+                name="duenoTelefono"
+                [(ngModel)]="formModel.dueno.telefono"
+                #duenoTelefono="ngModel"
+                required
+                pattern="^[0-9]{9}$"
+                [class.input-invalid]="duenoTelefono.invalid && (duenoTelefono.touched || submitted)">
+            <small class="error-msg" *ngIf="duenoTelefono.errors?.['required'] && (duenoTelefono.touched || submitted)">
+                El teléfono es obligatorio.
+            </small>
+            <small class="error-msg" *ngIf="duenoTelefono.errors?.['pattern'] && (duenoTelefono.touched || submitted)">
+                Debe tener 9 dígitos numéricos.
+            </small>
         </div>
+
+        <div class="form-field">
+            <label for="duenoEmail">Email del dueño</label>
+            <input
+                id="duenoEmail"
+                type="email"
+                name="duenoEmail"
+                [(ngModel)]="formModel.dueno.email"
+                #duenoEmail="ngModel"
+                required
+                email
+                [class.input-invalid]="duenoEmail.invalid && (duenoEmail.touched || submitted)">
+            <small class="error-msg" *ngIf="duenoEmail.errors?.['required'] && (duenoEmail.touched || submitted)">
+                El email es obligatorio.
+            </small>
+            <small class="error-msg" *ngIf="duenoEmail.errors?.['email'] && (duenoEmail.touched || submitted)">
+                Ingresa un email válido.
+            </small>
+        </div>
+
         <div class="vacunas-section">
             <label class="vacunas-label">Vacunas</label>
-            <div formArrayName="vacunas">
-                <div *ngFor="let v of vacunas.controls; let i=index" [formGroupName]="i" class="vacuna-row">
+            <div>
+                <div *ngFor="let v of formModel.vacunas; let i = index" class="vacuna-row">
                     <div class="vacuna-field">
-                        <label>Nombre</label>
-                        <input formControlName="nombre" required>
+                        <label for="vacunaNombre{{ i }}">Nombre</label>
+                        <input
+                            id="vacunaNombre{{ i }}"
+                            type="text"
+                            [name]="'vacunaNombre' + i"
+                            [(ngModel)]="v.nombre"
+                            #vacunaNombre="ngModel"
+                            required
+                            minlength="3"
+                            [class.input-invalid]="vacunaNombre.invalid && (vacunaNombre.touched || submitted)">
+                        <small class="error-msg" *ngIf="vacunaNombre.invalid && (vacunaNombre.touched || submitted)">
+                            Nombre de vacuna obligatorio.
+                        </small>
                     </div>
                     <div class="vacuna-field">
-                        <label>Fecha</label>
-                        <input type="date" formControlName="fecha" required>
+                        <label for="vacunaFecha{{ i }}">Fecha</label>
+                        <input
+                            id="vacunaFecha{{ i }}"
+                            type="date"
+                            [name]="'vacunaFecha' + i"
+                            [(ngModel)]="v.fecha"
+                            #vacunaFecha="ngModel"
+                            required
+                            [class.input-invalid]="vacunaFecha.invalid && (vacunaFecha.touched || submitted)">
+                        <small class="error-msg" *ngIf="vacunaFecha.invalid && (vacunaFecha.touched || submitted)">
+                            Fecha obligatoria.
+                        </small>
                     </div>
                     <button type="button" class="btn-delete" (click)="eliminarVacuna(i)">🗑️</button>
                 </div>
             </div>
             <button type="button" class="btn-stroke" (click)="agregarVacuna()">Agregar Vacuna</button>
         </div>
-        <button class="submit-btn" type="submit">{{editIndex!==null?'Actualizar':'Registrar'}}</button>
+
+        <div class="actions-row">
+            <button class="submit-btn" type="submit" [disabled]="mascotaForm.invalid">
+                {{ editIndex !== null ? 'Actualizar' : 'Registrar' }}
+            </button>
+            <button
+                *ngIf="editIndex !== null"
+                type="button"
+                class="btn-stroke"
+                (click)="cancelarEdicion()">
+                Cancelar edición
+            </button>
+        </div>
     </form>
 
     <div class="tabla-mascotas-wrapper">
@@ -50,6 +168,7 @@
                     <th>Raza</th>
                     <th>Dueño</th>
                     <th>Teléfono</th>
+                    <th>Email</th>
                     <th>Vacunas</th>
                     <th>Acciones</th>
                 </tr>
@@ -61,6 +180,7 @@
                     <td>{{m.raza}}</td>
                     <td>{{m.dueno.nombre}}</td>
                     <td class="mascota-tel">{{m.dueno.telefono}}</td>
+                    <td>{{m.dueno.email}}</td>
                     <td>
                         <span *ngIf="m.vacunas.length > 0">
                             <span *ngFor="let v of m.vacunas; let last=last">{{v.nombre}}<span *ngIf="!last">,
